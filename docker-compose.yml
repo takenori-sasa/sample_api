@@ -15,7 +15,7 @@ services:
     volumes_from:
       - shared
     ports:
-      - 5432:5432  
+      - 5432:5432
   redis:
     image: redis:alpine
     networks:
@@ -23,7 +23,7 @@ services:
     ports:
       - 6379:6379
     volumes_from:
-      - shared  
+      - shared
 
   rails: &app_base
     build:
@@ -41,34 +41,15 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - db      
+      - db
       - redis
     tty: true
     stdin_open: true
-  solargraph:
-    <<: *app_base  
-    ports:
-      - 7658:7658
-    depends_on: []
-    command: ["solargraph", "socket", "--host", "0.0.0.0", "--port", "7658"]
-    restart: always
-  webpacker:
-    <<: *app_base  
-    environment:
-      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
-      - RAILS_ENV=development
-      - NODE_ENV=development
-    command: ./bin/webpack-dev-server
-    ports:
-      - 3035:3035
-    tty: false
-    stdin_open: false
-    depends_on: []
 volumes:
   db:
     driver: local
   bundle:
-    driver: local  
+    driver: local
   redis-data:
     driver: local
   node_modules:
