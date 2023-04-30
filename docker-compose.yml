@@ -5,7 +5,6 @@ services:
     volumes:
       - db:/var/lib/postgresql/data:cached
       - bundle:/usr/local/bundle:cached
-      - redis-data:/data:cached
       - node_modules:/app/node_modules
   db:
     image: postgres
@@ -16,14 +15,6 @@ services:
       - shared
     ports:
       - 5432:5432
-  redis:
-    image: redis:alpine
-    networks:
-      - default
-    ports:
-      - 6379:6379
-    volumes_from:
-      - shared
 
   rails: &app_base
     build:
@@ -36,21 +27,16 @@ services:
       - .:/app:cached
     volumes_from:
       - shared
-    environment:
-      - WEBPACKER_DEV_SERVER_HOST=webpacker
     ports:
       - 3000:3000
     depends_on:
       - db
-      - redis
     tty: true
     stdin_open: true
 volumes:
   db:
     driver: local
   bundle:
-    driver: local
-  redis-data:
     driver: local
   node_modules:
     driver: local
