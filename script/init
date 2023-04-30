@@ -3,11 +3,9 @@
 cp .env.dev.sample .env.dev
 
 docker-compose build
-docker-compose run web rails new . --api --force --no-deps --database=postgresql
+docker-compose run rails rails new . --api --force --no-deps --database=postgresql --skip-git
 
 cp -f template/database.yml config/database.yml
-cp -f template/package.json ./package.json
-docker-compose run --rm rails yarn install --check-files
 echo "
 
 group :development do
