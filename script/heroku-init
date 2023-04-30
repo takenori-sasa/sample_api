@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+cp -f template/puma.rb config/puma.rb
+heroku update beta
+heroku plugins:install @heroku-cli/plugin-manifest
+heroku create --manifest
+heroku stack:set heroku-20
