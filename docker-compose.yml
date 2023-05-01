@@ -16,7 +16,7 @@ services:
     ports:
       - 5432:5432
 
-  rails: &app_base
+  api: &app_base
     build:
       context: .
       dockerfile: Dockerfile

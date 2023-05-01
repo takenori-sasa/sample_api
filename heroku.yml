@@ -4,7 +4,7 @@ setup:
       as: DATABASE
 build:
   docker:
-    rails: heroku.Dockerfile
+    api: heroku.Dockerfile
   config:
     RAILS_ENV: production
     RACK_ENV: production
@@ -12,5 +12,4 @@ build:
     RAILS_SERVE_STATIC_FILES: enabled
     TZ: Asia/Tokyo
 run:
-  rails: bundle exec puma -C config/puma.rb
-
+  api: bundle exec puma -C config/puma.rb

@@ -3,7 +3,7 @@
 cp .env.dev.sample .env.dev
 
 docker-compose build
-docker-compose run --rm rails rails new . --api --force --no-deps --database=postgresql --skip-git
+docker-compose run --rm api rails new . --api --force --no-deps --database=postgresql --skip-git
 
 cp -f template/puma.rb config/puma.rb
 cp -f template/database.yml config/database.yml
@@ -16,4 +16,4 @@ group :development do
 end
 
 " >> Gemfile
-docker-compose run --rm rails bundle install
+docker-compose run --rm api bundle install
